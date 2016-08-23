@@ -388,7 +388,7 @@ class DboOdbc extends DboSource{
  * @param unknown_type $results
  */
 	function resultSet(&$results) {
-		$this->results=&$results;
+		$this->results=$results;
 		$this->map=array();
 		$num_fields   =odbc_num_fields($results);
 		$index        =0;

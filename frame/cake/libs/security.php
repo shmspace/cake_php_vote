@@ -45,7 +45,7 @@ class Security extends Object {
 	function &getInstance() {
 		static $instance = array();
 		if (!$instance) {
-			$instance[0] = &new Security;
+			$instance[0] = new Security;
 		}
 		return $instance[0];
 	}
@@ -76,7 +76,7 @@ class Security extends Object {
  * @access public
  */
 	function generateAuthKey() {
-		$_this =& Security::getInstance();
+		$_this = Security::getInstance();
 		return $_this->hash(uniqid(rand(), true));
 	}
 /**

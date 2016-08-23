@@ -137,7 +137,7 @@ class SessionHelper extends CakeSession {
 				} elseif ($flash['layout'] == '' || $flash['layout'] == null) {
 					$out = $flash['message'];
 				} else {
-					$view =& ClassRegistry::getObject('view');
+					$view = ClassRegistry::getObject('view');
 					list($tmpLayout, $tmpVars, $tmpTitle) = array($view->layout, $view->viewVars, $view->pageTitle);
 					list($view->layout, $view->viewVars, $view->pageTitle) = array($flash['layout'], $flash['params'], '');
 					$out = $view->renderLayout($flash['message']);

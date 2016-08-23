@@ -62,7 +62,7 @@ class Inflector extends Object {
 		static $instance = array();
 
 		if (!isset($instance[0]) || !$instance[0]) {
-			$instance[0] =& new Inflector();
+			$instance[0] = new Inflector();
 		}
 
 		return $instance[0];
@@ -73,7 +73,7 @@ class Inflector extends Object {
  * @access protected
  */
 	function __initPluralRules() {
-		$_this =& Inflector::getInstance();
+		$_this = Inflector::getInstance();
 		$corePluralRules = array('/(s)tatus$/i' => '\1\2tatuses',
 									'/(quiz)$/i' => '\1zes',
 									'/^(ox)$/i' => '\1\2en',
@@ -160,7 +160,7 @@ class Inflector extends Object {
  */
 	function pluralize($word) {
 
-		$_this =& Inflector::getInstance();
+		$_this = Inflector::getInstance();
 		if (!isset($_this->pluralRules) || empty($_this->pluralRules)) {
 			$_this->__initPluralRules();
 		}
@@ -203,7 +203,7 @@ class Inflector extends Object {
  */
 	function __initSingularRules() {
 
-		$_this =& Inflector::getInstance();
+		$_this = Inflector::getInstance();
 		$coreSingularRules = array('/(s)tatuses$/i' => '\1\2tatus',
 									'/^(.*)(menu)s$/i' => '\1\2',
 									'/(quiz)zes$/i' => '\\1',
@@ -300,7 +300,7 @@ class Inflector extends Object {
  * @static
  */
 	function singularize($word) {
-		$_this =& Inflector::getInstance();
+		$_this = Inflector::getInstance();
 		if (!isset($_this->singularRules) || empty($_this->singularRules)) {
 			$_this->__initSingularRules();
 		}

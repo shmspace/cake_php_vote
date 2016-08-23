@@ -286,7 +286,7 @@ class HtmlHelper extends Helper {
 				}
 			} else {
 				$model = new $this->model;
-				$db =& ConnectionManager::getDataSource($model->useDbConfig);
+				$db = ConnectionManager::getDataSource($model->useDbConfig);
 				$value = $db->boolean($value);
 				$htmlAttributes['checked'] = $value ? 'checked' : null;
 				$htmlAttributes['value'] = 1;

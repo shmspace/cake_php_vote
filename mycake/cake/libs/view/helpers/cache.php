@@ -246,13 +246,13 @@ class CacheHelper extends Helper{
 					{
 						$replace = strtolower(substr($helper, 0, 1));
 						$camelBackedHelper = preg_replace(\'/\\w/\', $replace, $helper, 1);
-						${$camelBackedHelper} =& $loadedHelpers[$helper];
+						${$camelBackedHelper} = $loadedHelpers[$helper];
 
 						if (isset(${$camelBackedHelper}->helpers) && is_array(${$camelBackedHelper}->helpers))
 						{
 							foreach (${$camelBackedHelper}->helpers as $subHelper)
 							{
-								${$camelBackedHelper}->{$subHelper} =& $loadedHelpers[$subHelper];
+								${$camelBackedHelper}->{$subHelper} = $loadedHelpers[$subHelper];
 							}
 						}
 						$this->loaded[$camelBackedHelper] = (${$camelBackedHelper});

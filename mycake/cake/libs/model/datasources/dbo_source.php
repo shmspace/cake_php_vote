@@ -543,7 +543,7 @@ class DboSource extends DataSource {
 		foreach ($model->__associations as $type) {
 			foreach ($model->{$type} as $assoc => $assocData) {
 				if ($model->recursive > -1) {
-					$linkModel =& $model->{$assoc};
+					$linkModel = $model->{$assoc};
 
 					$external = isset($assocData['external']);
 					if ($model->alias == $linkModel->alias && $type != 'hasAndBelongsToMany' && $type != 'hasMany') {
@@ -575,17 +575,17 @@ class DboSource extends DataSource {
 			foreach ($model->__associations as $type) {
 				foreach ($model->{$type} as $assoc => $assocData) {
 					$db = null;
-					$linkModel =& $model->{$assoc};
+					$linkModel = $model->{$assoc};
 
 					if (!in_array($type . '/' . $assoc, $linkedModels)) {
 						if ($model->useDbConfig == $linkModel->useDbConfig) {
-							$db =& $this;
+							$db = $this;
 						} else {
-							$db =& ConnectionManager::getDataSource($linkModel->useDbConfig);
+							$db = ConnectionManager::getDataSource($linkModel->useDbConfig);
 						}
 					} elseif ($model->recursive > 1 && ($type == 'belongsTo' || $type == 'hasOne')) {
 						// Do recursive joins on belongsTo and hasOne relationships
-						$db =& $this;
+						$db = $this;
 					} else {
 						unset ($db);
 					}
@@ -692,14 +692,14 @@ class DboSource extends DataSource {
 						foreach ($linkModel->__associations as $type1) {
 							foreach ($linkModel->{$type1} as $assoc1 => $assocData1) {
 
-								$deepModel =& $linkModel->{$assocData1['className']};
+								$deepModel = $linkModel->{$assocData1['className']};
 								if ($deepModel->alias != $model->alias) {
 									$tmpStack = $stack;
 									$tmpStack[] = $assoc1;
 									if ($linkModel->useDbConfig == $deepModel->useDbConfig) {
-										$db =& $this;
+										$db = $this;
 									} else {
-										$db =& ConnectionManager::getDataSource($deepModel->useDbConfig);
+										$db = ConnectionManager::getDataSource($deepModel->useDbConfig);
 									}
 									$db->queryAssociation($linkModel, $deepModel, $type1, $assoc1, $assocData1, $queryData, true, $fetch, $recursive - 1, $tmpStack);
 								}
@@ -711,7 +711,7 @@ class DboSource extends DataSource {
 			}
 			for ($i = 0; $i < $count; $i++) {
 
-				$row =& $resultSet[$i];
+				$row = $resultSet[$i];
 				$q = $this->insertQueryData($query, $resultSet[$i], $association, $assocData, $model, $linkModel, $stack);
 
 				if ($q != false) {
@@ -726,14 +726,14 @@ class DboSource extends DataSource {
 						foreach ($linkModel->__associations as $type1) {
 							foreach ($linkModel->{$type1} as $assoc1 => $assocData1) {
 
-								$deepModel =& $linkModel->{$assocData1['className']};
+								$deepModel = $linkModel->{$assocData1['className']};
 								if ($deepModel->alias != $model->alias) {
 									$tmpStack = $stack;
 									$tmpStack[] = $assoc1;
 									if ($linkModel->useDbConfig == $deepModel->useDbConfig) {
-										$db =& $this;
+										$db = $this;
 									} else {
-										$db =& ConnectionManager::getDataSource($deepModel->useDbConfig);
+										$db = ConnectionManager::getDataSource($deepModel->useDbConfig);
 									}
 									$db->queryAssociation($linkModel, $deepModel, $type1, $assoc1, $assocData1, $queryData, true, $fetch, $recursive - 1, $tmpStack);
 								}

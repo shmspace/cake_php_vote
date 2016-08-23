@@ -200,7 +200,7 @@ class AclCLI {
 				$this->dataSource = DATASOURCE;
 				$this->Acl = new AclComponent();
 				$this->args = $args;
-				$this->db =& ConnectionManager::getDataSource($this->dataSource);
+				$this->db = ConnectionManager::getDataSource($this->dataSource);
 			}
 		}
 
@@ -409,7 +409,7 @@ class AclCLI {
  *
  */
 	function initdb() {
-		$db =& ConnectionManager::getDataSource($this->dataSource);
+		$db = ConnectionManager::getDataSource($this->dataSource);
 		$this->stdout("Initializing Database...\n");
 		$this->stdout("Creating access control objects table (acos)...\n");
 		$sql = " CREATE TABLE ".$db->fullTableName('acos')." (
@@ -460,7 +460,7 @@ class AclCLI {
  *
  */
 	function upgradedb() {
-		$db =& ConnectionManager::getDataSource($this->dataSource);
+		$db = ConnectionManager::getDataSource($this->dataSource);
 		$this->stdout("Initializing Database...\n");
 		$this->stdout("Upgrading table (aros)...\n");
 		$sql = "ALTER TABLE ".$db->fullTableName('aros')."

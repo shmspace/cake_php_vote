@@ -76,7 +76,7 @@ class Security extends Object {
  * @access public
  */
 	function generateAuthKey() {
-		$_this =& Security::getInstance();
+		$_this = Security::getInstance();
 		return $_this->hash(uniqid(rand(), true));
 	}
 /**

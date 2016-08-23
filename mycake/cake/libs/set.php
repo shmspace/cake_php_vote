@@ -80,7 +80,7 @@ class Set extends Object {
 			$backtrace = debug_backtrace();
 			$previousCall = strtolower($backtrace[1]['class'].'::'.$backtrace[1]['function']);
 			if ($previousCall != 'set::merge') {
-				$r =& $this->value;
+				$r = $this->value;
 				array_unshift($args, null);
 			}
 		}
@@ -425,12 +425,12 @@ class Set extends Object {
 		if (empty($data) && is_a($this, 'Set')) {
 			$data = $path;
 			$path = $list;
-			$list =& $this->get();
+			$list = $this->get();
 		}
 		if (!is_array($path)) {
 			$path = explode('.', $path);
 		}
-		$_list =& $list;
+		$_list = $list;
 
 		foreach ($path as $i => $key) {
 			if (is_numeric($key) && intval($key) > 0 || $key == '0') {
@@ -442,7 +442,7 @@ class Set extends Object {
 				if (!isset($_list[$key])) {
 					$_list[$key] = array();
 				}
-				$_list =& $_list[$key];
+				$_list = $_list[$key];
 			}
 		}
 		return $list;
@@ -458,12 +458,12 @@ class Set extends Object {
 	function remove($list, $path = null) {
 		if (empty($path) && is_a($this, 'Set')) {
 			$path = $list;
-			$list =& $this->get();
+			$list = $this->get();
 		}
 		if (!is_array($path)) {
 			$path = explode('.', $path);
 		}
-		$_list =& $list;
+		$_list = $list;
 
 		foreach ($path as $i => $key) {
 			if (is_numeric($key) && intval($key) > 0 || $key == '0') {
@@ -475,7 +475,7 @@ class Set extends Object {
 				if (!isset($_list[$key])) {
 					return $list;
 				}
-				$_list =& $_list[$key];
+				$_list = $_list[$key];
 			}
 		}
 
@@ -513,7 +513,7 @@ class Set extends Object {
 				if (!isset($data[$key])) {
 					return false;
 				}
-				$data =& $data[$key];
+				$data = $data[$key];
 			}
 		}
 		return true;

@@ -51,7 +51,7 @@ class Component extends Object {
  * @access public
  */
 	function init(&$controller) {
-		$this->__controller =& $controller;
+		$this->__controller = $controller;
 
 		if ($this->__controller->components !== false) {
 			$loaded = array();
@@ -59,11 +59,11 @@ class Component extends Object {
 			$loaded = $this->__loadComponents($loaded, $this->__controller->components);
 
 			foreach (array_keys($loaded)as $component) {
-				$tempComponent =& $loaded[$component];
+				$tempComponent = $loaded[$component];
 
 				if (isset($tempComponent->components) && is_array($tempComponent->components)) {
 					foreach ($tempComponent->components as $subComponent) {
-						$this->__controller->{$component}->{$subComponent} =& $loaded[$subComponent];
+						$this->__controller->{$component}->{$subComponent} = $loaded[$subComponent];
 					}
 				}
 				if (is_callable(array($tempComponent, 'initialize'))) {
@@ -126,10 +126,10 @@ class Component extends Object {
 					$param = null;
 				}
 				$this->__controller->{$component} = new $componentCn($param);
-				$loaded[$component] =& $this->__controller->{$component};
+				$loaded[$component] = $this->__controller->{$component};
 
 				if (isset($this->__controller->{$component}->components) && is_array($this->__controller->{$component}->components)) {
-					$loaded =& $this->__loadComponents($loaded, $this->__controller->{$component}->components);
+					$loaded = $this->__loadComponents($loaded, $this->__controller->{$component}->components);
 				}
 			}
 		}

@@ -289,9 +289,9 @@ class DboAdodb extends DboSource {
  */
 	function column($real) {
 		if (isset($this->_result)) {
-			$adodb_metatyper = &$this->_result;
+			$adodb_metatyper = $this->_result;
 		} else {
-			$adodb_metatyper = &$this->_adodb->execute('Select 1');
+			$adodb_metatyper = $this->_adodb->execute('Select 1');
 		}
 
 		$interpreted_type = $adodb_metatyper->MetaType($real);
@@ -383,7 +383,7 @@ class DboAdodb extends DboSource {
 	function resultSet(&$results) {
 		$num_fields = count($results);
 		$fields = array_keys($results);
-		$this->results =& $results;
+		$this->results = $results;
 		$this->map = array();
 		$index = 0;
 		$j = 0;

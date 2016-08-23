@@ -52,7 +52,7 @@ class ClassRegistry{
 	function &getInstance() {
 		static $instance = array();
 		if (!$instance) {
-			$instance[0] = &new ClassRegistry;
+			$instance[0] = new ClassRegistry;
 		}
 		return $instance[0];
 	}
@@ -63,10 +63,10 @@ class ClassRegistry{
  * @param mixed $object
  */
 	function addObject($key, &$object) {
-		$_this =& ClassRegistry::getInstance();
+		$_this = ClassRegistry::getInstance();
 		$key = strtolower($key);
 		if (array_key_exists($key, $_this->_objects) === false) {
-			$_this->_objects[$key] = &$object;
+			$_this->_objects[$key] = $object;
 		}
 	}
 /**
@@ -76,7 +76,7 @@ class ClassRegistry{
  * @return void
  */
 	function removeObject($key) {
-		$_this =& ClassRegistry::getInstance();
+		$_this = ClassRegistry::getInstance();
 		$key = strtolower($key);
 		if (array_key_exists($key, $_this->_objects) === true) {
 			unset($_this->_objects[$key]);
@@ -89,7 +89,7 @@ class ClassRegistry{
  * @return boolean Success
  */
 	function isKeySet($key) {
-		$_this =& ClassRegistry::getInstance();
+		$_this = ClassRegistry::getInstance();
 		$key = strtolower($key);
 		return array_key_exists($key, $_this->_objects);
 	}
@@ -99,7 +99,7 @@ class ClassRegistry{
  * @return array
  */
 	function keys() {
-		$_this =& ClassRegistry::getInstance();
+		$_this = ClassRegistry::getInstance();
 		return array_keys($_this->_objects);
 	}
 /**
@@ -109,7 +109,7 @@ class ClassRegistry{
  * @return mixed
  */
 	function &getObject($key) {
-		$_this =& ClassRegistry::getInstance();
+		$_this = ClassRegistry::getInstance();
 		$key = strtolower($key);
 		return $_this->_objects[$key];
 	}

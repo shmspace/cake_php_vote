@@ -193,14 +193,14 @@ class Dispatcher extends Object {
 		$controller->action = $params['action'];
 
 		if (!empty($controller->params['data'])) {
-			$controller->data =& $controller->params['data'];
+			$controller->data = $controller->params['data'];
 		} else {
 			$controller->data = null;
 		}
 
 		if (!empty($controller->params['pass'])) {
-			$controller->passed_args =& $controller->params['pass'];
-			$controller->passedArgs =&  $controller->params['pass'];
+			$controller->passed_args = $controller->params['pass'];
+			$controller->passedArgs =  $controller->params['pass'];
 		} else {
 			$controller->passed_args = null;
 			$controller->passedArgs = null;
@@ -265,7 +265,7 @@ class Dispatcher extends Object {
 		if ($controller->autoRender) {
 			$output = $controller->render();
 		}
-		$controller->output =& $output;
+		$controller->output = $output;
 		$controller->afterFilter();
 		return $controller->output;
 	}

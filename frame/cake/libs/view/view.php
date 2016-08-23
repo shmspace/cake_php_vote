@@ -204,14 +204,14 @@ class View extends Object{
  */
 	function __construct(&$controller) {
 		if (is_object($controller)) {
-			$this->controller =& $controller;
+			$this->controller = $controller;
 			$c = count($this->_passedVars);
 
 			for ($j = 0; $j < $c; $j++) {
 				$var = $this->_passedVars[$j];
 				$this->{$var} = $controller->{$var};
 			}
-			$this->_viewVars =& $this->viewVars;
+			$this->_viewVars = $this->viewVars;
 		}
 		if (!is_null($this->plugin)) {
 			$this->pluginPath = 'plugins'. DS . $this->plugin . DS;
@@ -583,19 +583,19 @@ class View extends Object{
 				$replace = strtolower(substr($helper, 0, 1));
 				$camelBackedHelper = preg_replace('/\\w/', $replace, $helper, 1);
 
-				${$camelBackedHelper} =& $loadedHelpers[$helper];
+				${$camelBackedHelper} = $loadedHelpers[$helper];
 
 				if (isset(${$camelBackedHelper}->helpers) && is_array(${$camelBackedHelper}->helpers)) {
 					foreach (${$camelBackedHelper}->helpers as $subHelper) {
-						${$camelBackedHelper}->{$subHelper} =& $loadedHelpers[$subHelper];
+						${$camelBackedHelper}->{$subHelper} = $loadedHelpers[$subHelper];
 					}
 				}
-				$this->loaded[$camelBackedHelper] =& ${$camelBackedHelper};
+				$this->loaded[$camelBackedHelper] = ${$camelBackedHelper};
 			}
 		}
 		extract($___dataForView, EXTR_SKIP);
 		$BASE = $this->base;
-		$params =& $this->params;
+		$params = $this->params;
 
 		ob_start();
 
@@ -618,10 +618,10 @@ class View extends Object{
 
 		if (isset($this->loaded['cache']) && ((isset($this->controller) && $this->controller->cacheAction != false)) && (defined('CACHE_CHECK') && CACHE_CHECK === true)) {
 			if (is_a($this->loaded['cache'], 'CacheHelper')) {
-				$cache =& $this->loaded['cache'];
+				$cache = $this->loaded['cache'];
 
 				if ($cached === true) {
-					$cache->view = &$this;
+					$cache->view = $this;
 				}
 
 				$cache->base			= $this->base;
@@ -683,8 +683,8 @@ class View extends Object{
 
 				$camelBackedHelper = Inflector::variable($helper);
 
-				${$camelBackedHelper} =& new $helperCn;
-				${$camelBackedHelper}->view =& $this;
+				${$camelBackedHelper} = new $helperCn;
+				${$camelBackedHelper}->view = $this;
 				${$camelBackedHelper}->tags = $tags;
 
 				$vars = array('base', 'webroot', 'here', 'params', 'action', 'data', 'themeWeb', 'plugin');
@@ -697,10 +697,10 @@ class View extends Object{
 					${$camelBackedHelper}->validationErrors = $this->validationErrors;
 				}
 
-				$loaded[$helper] =& ${$camelBackedHelper};
+				$loaded[$helper] = ${$camelBackedHelper};
 
 				if (isset(${$camelBackedHelper}->helpers) && is_array(${$camelBackedHelper}->helpers)) {
-					$loaded = &$this->_loadHelpers($loaded, ${$camelBackedHelper}->helpers);
+					$loaded = $this->_loadHelpers($loaded, ${$camelBackedHelper}->helpers);
 				}
 			}
 		}

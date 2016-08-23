@@ -67,7 +67,7 @@ if (is_array($data)) {
 			if (isset($value['foreignKey'])) {
 				$otherModelKey = Inflector::underscore($value['modelKey']);
 				$otherControllerName = $value['controller'];
-				$otherModelObject =& ClassRegistry::getObject( $otherModelKey );
+				$otherModelObject = ClassRegistry::getObject( $otherModelKey );
 				if (is_object($otherModelObject)) {
 					$displayText = $row[$alias[$count]][ $otherModelObject->getDisplayField() ];
 				} else {

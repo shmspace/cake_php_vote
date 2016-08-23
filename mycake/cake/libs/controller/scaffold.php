@@ -81,7 +81,7 @@ class Scaffold extends Object{
  * @param array $params
  */
 	function __construct(&$controller, $params) {
-		$this->controllerClass =& $controller;
+		$this->controllerClass = $controller;
 		$this->actionView = $controller->action;
 		$this->modelKey  = ucwords(Inflector::singularize($controller->name));
 		$this->scaffoldTitle = Inflector::humanize($this->modelKey);
@@ -380,7 +380,7 @@ class Scaffold extends Object{
 			$this->controllerClass->helpers[] = 'Form';
 		}
 		if ($this->controllerClass->constructClasses()) {
-			$db =& ConnectionManager::getDataSource($this->controllerClass->{$this->modelKey}->useDbConfig);
+			$db = ConnectionManager::getDataSource($this->controllerClass->{$this->modelKey}->useDbConfig);
 
 			if (isset($db)) {
 				if ($params['action'] === 'index' || $params['action'] === 'list' || $params['action'] === 'view'

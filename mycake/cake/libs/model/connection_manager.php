@@ -81,7 +81,7 @@ class ConnectionManager extends Object {
 		static $instance = array();
 
 		if (!isset($instance[0]) || !$instance[0]) {
-			$instance[0] = &new ConnectionManager();
+			$instance[0] = new ConnectionManager();
 		}
 
 		return $instance[0];
@@ -93,7 +93,7 @@ class ConnectionManager extends Object {
  * @return object
  */
 	function &getDataSource($name) {
-		$_this =& ConnectionManager::getInstance();
+		$_this = ConnectionManager::getInstance();
 
 		if (in_array($name, array_keys($_this->_dataSources))) {
 			return $_this->_dataSources[$name];
@@ -104,7 +104,7 @@ class ConnectionManager extends Object {
 			$conn = $connections[$name];
 			$class = $conn['classname'];
 			$_this->loadDataSource($name);
-			$_this->_dataSources[$name] =& new $class($_this->config->{$name});
+			$_this->_dataSources[$name] = new $class($_this->config->{$name});
 			$_this->_dataSources[$name]->configKeyName = $name;
 		} else {
 			trigger_error(sprintf(__("ConnectionManager::getDataSource - Non-existent data source %s", true), $name), E_USER_ERROR);
@@ -120,7 +120,7 @@ class ConnectionManager extends Object {
  * @return string
  */
 	function getSourceName(&$source) {
-		$_this =& ConnectionManager::getInstance();
+		$_this = ConnectionManager::getInstance();
 
 		$names = array_keys($_this->_dataSources);
 		for ($i = 0; $i < count($names); $i++) {
@@ -138,7 +138,7 @@ class ConnectionManager extends Object {
  * @return boolean True on success, null on failure or false if the class is already loaded
  */
 	function loadDataSource($connName) {
-		$_this =& ConnectionManager::getInstance();
+		$_this = ConnectionManager::getInstance();
 
 		if (is_array($connName)) {
 			$conn = $connName;
@@ -171,7 +171,7 @@ class ConnectionManager extends Object {
  *               (as defined in Connections), and the value is an array with keys 'filename' and 'classname'.
  */
 	function enumConnectionObjects() {
-		$_this =& ConnectionManager::getInstance();
+		$_this = ConnectionManager::getInstance();
 
 		if (!empty($_this->_connectionsEnum)) {
 			return $_this->_connectionsEnum;
@@ -195,7 +195,7 @@ class ConnectionManager extends Object {
  * @return object A reference to the DataSource object, or null if creation failed
  */
 	function &create($name = '', $config = array()) {
-		$_this =& ConnectionManager::getInstance();
+		$_this = ConnectionManager::getInstance();
 
 		if (empty($name) || empty($config) || array_key_exists($name, $_this->_connectionsEnum)) {
 			$null = null;
@@ -212,7 +212,7 @@ class ConnectionManager extends Object {
  * Returns the file and class name for the given driver
  */
 	function __getDriver($config) {
-		$_this =& ConnectionManager::getInstance();
+		$_this = ConnectionManager::getInstance();
 
 		if (!isset($config['datasource'])) {
 			$config['datasource'] = 'dbo';

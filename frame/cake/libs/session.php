@@ -668,7 +668,7 @@ class CakeSession extends Object {
  * @access private
  */
 	function __read($key) {
-		$db =& ConnectionManager::getDataSource('default');
+		$db = ConnectionManager::getDataSource('default');
 		$table = $db->fullTableName(CAKE_SESSION_TABLE, false);
 		$row = $db->query("SELECT " . $db->name($table.'.data') . " FROM " . $db->name($table) . " WHERE " . $db->name($table.'.id') . " = " . $db->value($key), false);
 
@@ -691,7 +691,7 @@ class CakeSession extends Object {
  * @access private
  */
 	function __write($key, $value) {
-		$db =& ConnectionManager::getDataSource('default');
+		$db = ConnectionManager::getDataSource('default');
 		$table = $db->fullTableName(CAKE_SESSION_TABLE);
 
 		switch(CAKE_SECURITY) {
@@ -734,7 +734,7 @@ class CakeSession extends Object {
  * @access private
  */
 	function __destroy($key) {
-		$db =& ConnectionManager::getDataSource('default');
+		$db = ConnectionManager::getDataSource('default');
 		$table = $db->fullTableName(CAKE_SESSION_TABLE);
 		$db->execute("DELETE FROM " . $db->name($table) . " WHERE " . $db->name($table.'.id') . " = " . $db->value($key, 'integer'));
 		return true;
@@ -747,7 +747,7 @@ class CakeSession extends Object {
  * @access private
  */
 	function __gc($expires = null) {
-		$db =& ConnectionManager::getDataSource('default');
+		$db = ConnectionManager::getDataSource('default');
 		$table = $db->fullTableName(CAKE_SESSION_TABLE);
 		$db->execute("DELETE FROM " . $db->name($table) . " WHERE " . $db->name($table.'.expires') . " < ". $db->value(time()));
 		return true;

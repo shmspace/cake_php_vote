@@ -154,7 +154,7 @@ class Dispatcher extends Object {
 													'url' => $url,
 													'base' => $this->base)));
 		} else {
-			$controller =& new $ctrlClass();
+			$controller = new $ctrlClass();
 		}
 
 		$classMethods = get_class_methods($controller);
@@ -193,14 +193,14 @@ class Dispatcher extends Object {
 		$controller->action = $params['action'];
 
 		if (!empty($controller->params['data'])) {
-			$controller->data =& $controller->params['data'];
+			$controller->data = $controller->params['data'];
 		} else {
 			$controller->data = null;
 		}
 
 		if (!empty($controller->params['pass'])) {
-			$controller->passed_args =& $controller->params['pass'];
-			$controller->passedArgs =&  $controller->params['pass'];
+			$controller->passed_args = $controller->params['pass'];
+			$controller->passedArgs =  $controller->params['pass'];
 		} else {
 			$controller->passed_args = null;
 			$controller->passedArgs = null;
@@ -218,7 +218,7 @@ class Dispatcher extends Object {
 		if (!is_null($controller->webservices)) {
 			array_push($controller->components, $controller->webservices);
 			array_push($controller->helpers, $controller->webservices);
-			$component =& new Component($controller);
+			$component = new Component($controller);
 		}
 		$controller->_initComponents();
 		$controller->constructClasses();
@@ -265,7 +265,7 @@ class Dispatcher extends Object {
 		if ($controller->autoRender) {
 			$output = $controller->render();
 		}
-		$controller->output =& $output;
+		$controller->output = $output;
 		$controller->afterFilter();
 		return $controller->output;
 	}

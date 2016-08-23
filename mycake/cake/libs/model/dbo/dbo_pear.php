@@ -65,7 +65,7 @@ class DboPear extends DboSource{
 		  $options=array('debug' => Configure::read() - 1,
 					  'portability' => DB_PORTABILITY_ALL,);
 
-		  $this->_pear    =&DB::connect($dsn, $options);
+		  $this->_pear    =DB::connect($dsn, $options);
 		  $this->connected=$this->_pear ? true : false;
 		  return !(PEAR::isError($this->_pear));
 	 }

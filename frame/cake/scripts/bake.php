@@ -393,7 +393,7 @@ class Bake {
 			$currentModelName = $enteredModel;
 		}
 
-		$db =& ConnectionManager::getDataSource($useDbConfig);
+		$db = ConnectionManager::getDataSource($useDbConfig);
 
 		$useTable = Inflector::tableize($currentModelName);
 		$fullTableName = $db->fullTableName($useTable, false);
@@ -494,7 +494,7 @@ class Bake {
 			$i = 0;
 			$j = 0;
 			foreach ($this->__tables as $otherTable) {
-				$tempOtherModel = & new Model(false, $otherTable);
+				$tempOtherModel =  new Model(false, $otherTable);
 				$modelFieldsTemp = $db->describe($tempOtherModel);
 				foreach ($modelFieldsTemp as $name => $field) {
 					if ($field['type'] == 'integer' || $field['type'] == 'string') {
@@ -884,7 +884,7 @@ class Bake {
 
 	function __bakeViews($controllerName, $controllerPath, $admin= null, $admin_url = null) {
 		$controllerClassName = $controllerName.'Controller';
-		$controllerObj = & new $controllerClassName();
+		$controllerObj =  new $controllerClassName();
 
 		if (!in_array('Html', $controllerObj->helpers)) {
 			$controllerObj->helpers[] = 'Html';
@@ -897,7 +897,7 @@ class Bake {
 		$currentModelName = $controllerObj->modelClass;
 		$this->__modelClass = $currentModelName;
 		$modelKey = Inflector::underscore($currentModelName);
-		$modelObj =& ClassRegistry::getObject($modelKey);
+		$modelObj = ClassRegistry::getObject($modelKey);
 		$singularName = $this->__singularName($currentModelName);
 		$pluralName = $this->__pluralName($currentModelName);
 		$singularHumanName = $this->__singularHumanName($currentModelName);
@@ -928,7 +928,7 @@ class Bake {
 			if (isset($value['foreignKey'])) {
 				$otherModelName = $this->__modelName($value['model']);
 				$otherModelKey = Inflector::underscore($otherModelName);
-				$otherModelObj =& ClassRegistry::getObject($otherModelKey);
+				$otherModelObj = ClassRegistry::getObject($otherModelKey);
 				$otherControllerName = $this->__controllerName($otherModelName);
 				$otherControllerPath = $this->__controllerPath($otherControllerName);
 				if (is_object($otherModelObj)) {
@@ -964,7 +964,7 @@ class Bake {
 			if (isset($value['foreignKey'])) {
 				$otherModelName = $this->__modelName($value['model']);
 				$otherModelKey = Inflector::underscore($otherModelName);
-				$otherModelObj =& ClassRegistry::getObject($otherModelKey);
+				$otherModelObj = ClassRegistry::getObject($otherModelKey);
 				$otherControllerName = $this->__controllerName($otherModelName);
 				$otherControllerPath = $this->__controllerPath($otherControllerName);
 				$displayField = $otherModelObj->getDisplayField();
@@ -1034,7 +1034,7 @@ class Bake {
 			$otherPluralHumanName = $this->__pluralHumanName($associationName);
 			$otherSingularHumanName = $this->__singularHumanName($associationName);
 			$otherModelKey = Inflector::underscore($otherModelName);
-			$otherModelObj =& ClassRegistry::getObject($otherModelKey);
+			$otherModelObj = ClassRegistry::getObject($otherModelKey);
 
 			$viewView .= "<div class=\"related\">\n";
 			$viewView .= "<h3>Related " . $otherPluralHumanName . "</h3>\n";
@@ -1308,7 +1308,7 @@ class Bake {
 	function __bakeActions($controllerName, $admin = null, $admin_url = null, $wannaUseSession = 'y') {
 		$currentModelName = $this->__modelName($controllerName);
 		loadModel($currentModelName);
-		$modelObj =& new $currentModelName();
+		$modelObj = new $currentModelName();
 		$controllerPath = $this->__controllerPath($controllerName);
 		$pluralName = $this->__pluralName($currentModelName);
 		$singularName = $this->__singularName($currentModelName);
@@ -1413,7 +1413,7 @@ class Bake {
 				$otherSingularName = $this->__singularName($associationName);
 				$otherPluralName = $this->__pluralName($associationName);
 				$otherModelKey = Inflector::underscore($otherModelName);
-				$otherModelObj =& ClassRegistry::getObject($otherModelKey);
+				$otherModelObj = ClassRegistry::getObject($otherModelKey);
 				$selectedOtherPluralName = 'selected' . ucfirst($otherPluralName);
 				$actions .= "\t\t\t\$this->set('{$otherPluralName}', \$this->{$currentModelName}->{$otherModelName}->generateList());\n";
 				$actions .= "\t\t\tif (empty(\$this->data['{$associationName}'])) { \$this->data['{$associationName}'] = null; }\n";
@@ -1960,7 +1960,7 @@ class Bake {
 						$this->__modelAlias = null;
 						if (isset($field['foreignKey'])) {
 							$modelKey = Inflector::underscore($this->__modelClass);
-							$modelObj =& ClassRegistry::getObject($modelKey);
+							$modelObj = ClassRegistry::getObject($modelKey);
 							foreach ($modelObj->belongsTo as $associationName => $value) {
 								if ($field['model'] == $value['className']) {
 									$this->__modelAlias = $this->__modelName($associationName);
@@ -2603,7 +2603,7 @@ class Bake {
  * @return output
  */
 	function __doList($useDbConfig = 'default', $type = 'Models') {
-		$db =& ConnectionManager::getDataSource($useDbConfig);
+		$db = ConnectionManager::getDataSource($useDbConfig);
 		$usePrefix = empty($db->config['prefix']) ? '' : $db->config['prefix'];
 		if ($usePrefix) {
 			$tables = array();

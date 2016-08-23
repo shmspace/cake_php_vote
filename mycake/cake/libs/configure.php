@@ -105,7 +105,7 @@ class Configure extends Object {
  * @access public
  */
 	function write($config, $value = null) {
-		$_this =& Configure::getInstance();
+		$_this = Configure::getInstance();
 
 		if (!is_array($config) && $value !== null) {
 			$name = $_this->__configVarNames($config);
@@ -151,7 +151,7 @@ class Configure extends Object {
  * @access public
  */
 	function read($var = 'debug') {
-		$_this =& Configure::getInstance();
+		$_this = Configure::getInstance();
 		if ($var === 'debug') {
 			if (!isset($_this->debug)) {
 				$_this->debug = DEBUG;
@@ -184,7 +184,7 @@ class Configure extends Object {
  * @access public
  */
 	function delete($var = null) {
-		$_this =& Configure::getInstance();
+		$_this = Configure::getInstance();
 
 		$name = $_this->__configVarNames($var);
 		if (count($name) > 1) {
@@ -206,7 +206,7 @@ class Configure extends Object {
  * @access public
  */
 	function load($fileName) {
-		$_this =& Configure::getInstance();
+		$_this = Configure::getInstance();
 
 		if (!file_exists(CONFIGS . $fileName . '.php')) {
 			trigger_error("Configure::load() - $fileName.php not found", E_USER_WARNING);
@@ -229,7 +229,7 @@ class Configure extends Object {
  * @access public
  */
 	function version() {
-		$_this =& Configure::getInstance();
+		$_this = Configure::getInstance();
 		if (!isset($_this->Cake['version'])) {
 			require(CORE_PATH . 'cake' . DS . 'config' . DS . 'config.php');
 			$_this->write($config);
@@ -260,7 +260,7 @@ class Configure extends Object {
  * @access private
  */
 	function __buildModelPaths($modelPaths) {
-		$_this =& Configure::getInstance();
+		$_this = Configure::getInstance();
 		$_this->modelPaths[] = MODELS;
 		if (isset($modelPaths)) {
 			foreach ($modelPaths as $value) {
@@ -275,7 +275,7 @@ class Configure extends Object {
  * @access private
  */
 	function __buildViewPaths($viewPaths) {
-		$_this =& Configure::getInstance();
+		$_this = Configure::getInstance();
 		$_this->viewPaths[] = VIEWS;
 		if (isset($viewPaths)) {
 			foreach ($viewPaths as $value) {
@@ -290,7 +290,7 @@ class Configure extends Object {
  * @access private
  */
 	function __buildControllerPaths($controllerPaths) {
-		$_this =& Configure::getInstance();
+		$_this = Configure::getInstance();
 		$_this->controllerPaths[] = CONTROLLERS;
 		if (isset($controllerPaths)) {
 			foreach ($controllerPaths as $value) {
@@ -305,7 +305,7 @@ class Configure extends Object {
  * @access private
  */
 	function __buildHelperPaths($helperPaths) {
-		$_this =& Configure::getInstance();
+		$_this = Configure::getInstance();
 		$_this->helperPaths[] = HELPERS;
 		if (isset($helperPaths)) {
 			foreach ($helperPaths as $value) {
@@ -320,7 +320,7 @@ class Configure extends Object {
  * @access private
  */
 	function __buildComponentPaths($componentPaths) {
-		$_this =& Configure::getInstance();
+		$_this = Configure::getInstance();
 		$_this->componentPaths[] = COMPONENTS;
 		if (isset($componentPaths)) {
 			foreach ($componentPaths as $value) {
@@ -336,7 +336,7 @@ class Configure extends Object {
  * @access private
  */
 	function __loadBootstrap() {
-		$_this =& Configure::getInstance();
+		$_this = Configure::getInstance();
 		$_this->write('Session.checkAgent', true);
 		$modelPaths = null;
 		$viewPaths = null;

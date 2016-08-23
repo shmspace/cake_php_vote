@@ -57,7 +57,7 @@ class ErrorHandler extends Object {
 		if (!class_exists('Dispatcher')) {
 			require CAKE . 'dispatcher.php';
 		}
-		$this->__dispatch =& new Dispatcher();
+		$this->__dispatch = new Dispatcher();
 
 		if ($__previousError != array($method, $messages)) {
 			$__previousError = array($method, $messages);
@@ -66,7 +66,7 @@ class ErrorHandler extends Object {
 				loadController(null);
 			}
 
-			$this->controller =& new AppController();
+			$this->controller = new AppController();
 			if (!empty($this->controller->uses)) {
 				$this->controller->constructClasses();
 			}
@@ -78,7 +78,7 @@ class ErrorHandler extends Object {
 				return $this->controller->appError($method, $messages);
 			}
 		} else {
-			$this->controller =& new Controller();
+			$this->controller = new Controller();
 			$this->controller->cacheAction = false;
 		}
 		if (Configure::read() > 0 || $method == 'error') {

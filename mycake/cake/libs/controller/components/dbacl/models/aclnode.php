@@ -112,7 +112,7 @@ class AclNode extends AppModel {
  */
 	function delete($id) {
 		extract ($this->__dataVars());
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 
 		$result = $this->find($this->_resolveID($id));
 		$object = $result[$class];
@@ -271,7 +271,7 @@ class AclNode extends AppModel {
  * @access protected
  */
 	function _syncTable($dir, $lft, $rght) {
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 
 		if ($dir == 2) {
 			$shift = 1;

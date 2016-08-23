@@ -307,7 +307,7 @@ class Controller extends Object{
 			if (($cached === false)) {
 				$model = new $this->modelClass($id);
 				$this->modelNames[] = $this->modelClass;
-				$this->{$this->modelClass} =& $model;
+				$this->{$this->modelClass} = $model;
 
 				if ($this->persistModel === true) {
 					$this->_persist($this->modelClass, true, $model);
@@ -346,7 +346,7 @@ class Controller extends Object{
 					if (($cached === false)) {
 						$model = new $modelClass($id);
 						$this->modelNames[] = $modelClass;
-						$this->{$modelClass} =& $model;
+						$this->{$modelClass} = $model;
 
 						if ($this->persistModel === true) {
 							$this->_persist($modelClass, true, $model);
@@ -541,15 +541,15 @@ class Controller extends Object{
 					$models[] = Inflector::underscore($currentModel);
 				}
 				if (isset($this->$currentModel) && is_a($this->$currentModel, 'Model') && !empty($this->$currentModel->validationErrors)) {
-					$this->__viewClass->validationErrors[Inflector::camelize($currentModel)] =& $this->$currentModel->validationErrors;
+					$this->__viewClass->validationErrors[Inflector::camelize($currentModel)] = $this->$currentModel->validationErrors;
 				}
 			}
 			$models = array_diff(ClassRegistry::keys(), $models);
 			foreach ($models as $currentModel) {
 				if (ClassRegistry::isKeySet($currentModel)) {
-					$currentObject =& ClassRegistry::getObject($currentModel);
+					$currentObject = ClassRegistry::getObject($currentModel);
 					if (is_a($currentObject, 'Model') && !empty($currentObject->validationErrors)) {
-						$this->__viewClass->validationErrors[Inflector::camelize($currentModel)] =& $currentObject->validationErrors;
+						$this->__viewClass->validationErrors[Inflector::camelize($currentModel)] = $currentObject->validationErrors;
 					}
 				}
 			}
@@ -661,7 +661,7 @@ class Controller extends Object{
 		$model = $this->modelClass;
 		$modelKey = $this->modelKey;
 		$table = $this->{$model}->table;
-		$objRegistryModel =& ClassRegistry::getObject($modelKey);
+		$objRegistryModel = ClassRegistry::getObject($modelKey);
 
 		foreach ($objRegistryModel->_tableInfo->value as $tabl) {
 			if ($objRegistryModel->isForeignKey($tabl['name'])) {
@@ -712,7 +712,7 @@ class Controller extends Object{
 					if (isset($fieldNames[$tabl['name']]['foreignKey'])) {
 						$fieldNames[$tabl['name']]['type'] = 'select';
 						$fieldNames[$tabl['name']]['options'] = array();
-						$otherModel =& ClassRegistry::getObject(Inflector::underscore($fieldNames[$tabl['name']]['modelKey']));
+						$otherModel = ClassRegistry::getObject(Inflector::underscore($fieldNames[$tabl['name']]['modelKey']));
 
 						if (is_object($otherModel)) {
 							if ($doCreateOptions) {
@@ -744,7 +744,7 @@ class Controller extends Object{
 					} elseif (isset($fieldNames[$tabl['name']]['foreignKey'])) {
 						$fieldNames[$tabl['name']]['type'] = 'select';
 						$fieldNames[$tabl['name']]['options'] = array();
-						$otherModel =& ClassRegistry::getObject(Inflector::underscore($fieldNames[$tabl['name']]['modelKey']));
+						$otherModel = ClassRegistry::getObject(Inflector::underscore($fieldNames[$tabl['name']]['modelKey']));
 
 						if (is_object($otherModel)) {
 							if ($doCreateOptions) {

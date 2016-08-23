@@ -358,7 +358,7 @@ class Model extends Object{
  * @access protected
  */
 	function __call($method, $params) {
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 		return $db->query($method, $params, $this);
 	}
 /**
@@ -532,7 +532,7 @@ class Model extends Object{
  */
 	function setSource($tableName) {
 		$this->setDataSource($this->useDbConfig);
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 		$db->cacheSources = $this->cacheSources;
 
 		if ($db->isInterfaceSupported('listSources')) {
@@ -601,7 +601,7 @@ class Model extends Object{
  * @access public
  */
 	function loadInfo() {
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 		$db->cacheSources = $this->cacheSources;
 
 		if (!is_object($this->_tableInfo) && $db->isInterfaceSupported('describe') && $this->useTable !== false) {
@@ -626,7 +626,7 @@ class Model extends Object{
 	function getColumnTypes() {
 		$columns = $this->loadInfo();
 		$columns = $columns->value;
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 		$cols = array();
 
 		foreach ($columns as $col) {
@@ -726,7 +726,7 @@ class Model extends Object{
 		}
 
 		if ($this->id !== null && $this->id !== false) {
-			$db =& ConnectionManager::getDataSource($this->useDbConfig);
+			$db = ConnectionManager::getDataSource($this->useDbConfig);
 			$field = $db->name($this->alias) . '.' . $db->name($this->primaryKey);
 			return $this->find($field . ' = ' . $db->value($id, $this->getColumnType($this->primaryKey)), $fields);
 		} else {
@@ -791,7 +791,7 @@ class Model extends Object{
  * @access public
  */
 	function save($data = null, $validate = true, $fieldList = array()) {
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 		$_whitelist = $this->whitelist;
 
 		if (!empty($fieldList)) {
@@ -910,7 +910,7 @@ class Model extends Object{
  * @access private
  */
 	function __saveMulti($joined, $id) {
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 		foreach ($joined as $x => $y) {
 			foreach ($y as $assoc => $value) {
 				if (isset($this->hasAndBelongsToMany[$assoc])) {
@@ -946,7 +946,7 @@ class Model extends Object{
 
 			if (is_array($newValue)) {
 				foreach ($newValue as $loopAssoc => $val) {
-					$db =& ConnectionManager::getDataSource($this->useDbConfig);
+					$db = ConnectionManager::getDataSource($this->useDbConfig);
 					$table = $db->name($db->fullTableName($joinTable[$loopAssoc]));
 					$db->query("DELETE FROM {$table} WHERE {$mainKey[$loopAssoc]} = '{$id}'");
 
@@ -985,7 +985,7 @@ class Model extends Object{
 		$id = $this->id;
 
 		if ($this->exists() && $this->beforeDelete()) {
-			$db =& ConnectionManager::getDataSource($this->useDbConfig);
+			$db = ConnectionManager::getDataSource($this->useDbConfig);
 
 			$this->_deleteMulti($id);
 			$this->_deleteHasMany($id, $cascade);
@@ -1026,7 +1026,7 @@ class Model extends Object{
 		}
 		foreach ($this->hasMany as $assoc => $data) {
 			if ($data['dependent'] === true && $cascade === true) {
-				$model =& $this->{$data['className']};
+				$model = $this->{$data['className']};
 				$field = $model->escapeField($data['foreignKey']);
 				$model->recursive = 0;
 				$records = $model->findAll("$field = '$id'", $model->primaryKey, null, null);
@@ -1056,7 +1056,7 @@ class Model extends Object{
 		}
 		foreach ($this->hasOne as $assoc => $data) {
 			if ($data['dependent'] === true && $cascade === true) {
-				$model =& $this->{$data['className']};
+				$model = $this->{$data['className']};
 				$field = $model->escapeField($data['foreignKey']);
 				$model->recursive = 0;
 				$records = $model->findAll("$field = '$id'", $model->primaryKey, null, null);
@@ -1080,7 +1080,7 @@ class Model extends Object{
  * @access protected
  */
 	function _deleteMulti($id) {
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 		foreach ($this->hasAndBelongsToMany as $assoc => $data) {
 			$db->execute("DELETE FROM " . $db->name($db->fullTableName($data['joinTable'])) . " WHERE " . $db->name($data['foreignKey']) . " = '{$id}'");
 		}
@@ -1099,7 +1099,7 @@ class Model extends Object{
 				$id = $id[0];
 			}
 
-			$db =& ConnectionManager::getDataSource($this->useDbConfig);
+			$db = ConnectionManager::getDataSource($this->useDbConfig);
 			return $db->hasAny($this, array($this->primaryKey => $id));
 		}
 		return false;
@@ -1151,7 +1151,7 @@ class Model extends Object{
  */
 	function findAll($conditions = null, $fields = null, $order = null, $limit = null, $page = 1, $recursive = null) {
 
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 		$this->id = $this->getID();
 		$offset = null;
 
@@ -1214,7 +1214,7 @@ class Model extends Object{
  * @access public
  */
 	function execute($data) {
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 		$data = $db->fetchAll($data, $this->cacheQueries);
 
 		foreach ($data as $key => $value) {
@@ -1241,7 +1241,7 @@ class Model extends Object{
  * @access public
  */
 	function findCount($conditions = null, $recursive = 0) {
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 
 		list($data) = $this->findAll($conditions, 'COUNT(*) AS ' . $db->name('count'), null, null, 1, $recursive);
 
@@ -1308,7 +1308,7 @@ class Model extends Object{
  * @access public
  */
 	function findNeighbours($conditions = null, $field, $value) {
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 
 		if (!is_null($conditions)) {
 				$conditions = $conditions . ' AND ';
@@ -1336,7 +1336,7 @@ class Model extends Object{
  */
 	function query() {
 		$params = func_get_args();
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 		return call_user_func_array(array(&$db, 'query'), $params);
 	}
 /**
@@ -1481,7 +1481,7 @@ class Model extends Object{
  * @access public
  */
 	function escapeField($field) {
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 		return $db->name($this->alias) . '.' . $db->name($field);
 	}
 /**
@@ -1544,7 +1544,7 @@ class Model extends Object{
  * @access public
  */
 	function getNumRows() {
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 		return $db->lastNumRows();
 	}
 /**
@@ -1554,7 +1554,7 @@ class Model extends Object{
  * @access public
  */
 	function getAffectedRows() {
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 		return $db->lastAffected();
 	}
 /**
@@ -1568,7 +1568,7 @@ class Model extends Object{
 		if ($dataSource != null) {
 			$this->useDbConfig = $dataSource;
 		}
-		$db =& ConnectionManager::getDataSource($this->useDbConfig);
+		$db = ConnectionManager::getDataSource($this->useDbConfig);
 
 		if (!empty($db->config['prefix']) && $this->tablePrefix === null) {
 			$this->tablePrefix = $db->config['prefix'];
