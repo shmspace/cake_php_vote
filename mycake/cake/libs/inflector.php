@@ -58,7 +58,7 @@ class Inflector extends Object {
  * @return object
  * @access public
  */
-	function &getInstance() {
+	static function &getInstance() {
 		static $instance = array();
 
 		if (!isset($instance[0]) || !$instance[0]) {
@@ -158,7 +158,7 @@ class Inflector extends Object {
  * @access public
  * @static
  */
-	function pluralize($word) {
+	static function pluralize($word) {
 
 		$_this = Inflector::getInstance();
 		if (!isset($_this->pluralRules) || empty($_this->pluralRules)) {
@@ -299,7 +299,7 @@ class Inflector extends Object {
  * @access public
  * @static
  */
-	function singularize($word) {
+	static function singularize($word) {
 		$_this = Inflector::getInstance();
 		if (!isset($_this->singularRules) || empty($_this->singularRules)) {
 			$_this->__initSingularRules();
@@ -344,7 +344,7 @@ class Inflector extends Object {
  * @access public
  * @static
  */
-	function camelize($lowerCaseAndUnderscoredWord) {
+	static function camelize($lowerCaseAndUnderscoredWord) {
 		$replace = str_replace(" ", "", ucwords(str_replace("_", " ", $lowerCaseAndUnderscoredWord)));
 		return $replace;
 	}
@@ -356,7 +356,7 @@ class Inflector extends Object {
  * @access public
  * @static
  */
-	function underscore($camelCasedWord) {
+	static function underscore($camelCasedWord) {
 		$replace = strtolower(preg_replace('/(?<=\\w)([A-Z])/', '_\\1', $camelCasedWord));
 		return $replace;
 	}
@@ -369,7 +369,7 @@ class Inflector extends Object {
  * @access public
  * @static
  */
-	function humanize($lowerCaseAndUnderscoredWord) {
+	static function humanize($lowerCaseAndUnderscoredWord) {
 		$replace = ucwords(str_replace("_", " ", $lowerCaseAndUnderscoredWord));
 		return $replace;
 	}
@@ -381,7 +381,7 @@ class Inflector extends Object {
  * @access public
  * @static
  */
-	function tableize($className) {
+	static function tableize($className) {
 		$replace = Inflector::pluralize(Inflector::underscore($className));
 		return $replace;
 	}
@@ -393,7 +393,7 @@ class Inflector extends Object {
  * @access public
  * @static
  */
-	function classify($tableName) {
+	static function classify($tableName) {
 		$replace = Inflector::camelize(Inflector::singularize($tableName));
 		return $replace;
 	}
@@ -405,7 +405,7 @@ class Inflector extends Object {
  * @access public
  * @static
  */
-	function variable($string) {
+	static function variable($string) {
 		$string = Inflector::camelize(Inflector::underscore($string));
 		$replace = strtolower(substr($string, 0, 1));
 		$variable = preg_replace('/\\w/', $replace, $string, 1);
@@ -420,7 +420,7 @@ class Inflector extends Object {
  * @access public
  * @static
  */
-	function slug($string, $replacement = '_') {
+	static function slug($string, $replacement = '_') {
 		$string = preg_replace(array('/[^\w\s]/', '/\\s+/') , array(' ', $replacement), $string);
 		return $string;
 	}

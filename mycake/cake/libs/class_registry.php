@@ -49,7 +49,7 @@ class ClassRegistry{
  *
  * @return ClassRegistry instance
  */
-	function &getInstance() {
+	static function &getInstance() {
 		static $instance = array();
 		if (!$instance) {
 			$instance[0] = new ClassRegistry;
@@ -62,7 +62,7 @@ class ClassRegistry{
  * @param string $key
  * @param mixed $object
  */
-	function addObject($key, &$object) {
+	static function addObject($key, &$object) {
 		$_this = ClassRegistry::getInstance();
 		$key = strtolower($key);
 		if (array_key_exists($key, $_this->_objects) === false) {

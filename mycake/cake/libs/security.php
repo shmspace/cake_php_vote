@@ -55,7 +55,7 @@ class Security extends Object {
  * @return integer
  * @access public
  */
-	function inactiveMins() {
+	static function inactiveMins() {
 		switch(CAKE_SECURITY) {
 			case 'high':
 				return 10;

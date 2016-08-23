@@ -83,7 +83,7 @@ class Configure extends Object {
  * @return Configure instance
  * @access public
  */
-	function &getInstance() {
+	static function &getInstance() {
 		static $instance = array();
 		if (!$instance) {
 			$instance[0] = new Configure;
@@ -150,7 +150,7 @@ class Configure extends Object {
  * @return string value of Configure::$var
  * @access public
  */
-	function read($var = 'debug') {
+	static function read($var = 'debug') {
 		$_this = Configure::getInstance();
 		if ($var === 'debug') {
 			if (!isset($_this->debug)) {

@@ -344,7 +344,7 @@ class Inflector extends Object {
  * @access public
  * @static
  */
-	function camelize($lowerCaseAndUnderscoredWord) {
+	static function camelize($lowerCaseAndUnderscoredWord) {
 		$replace = str_replace(" ", "", ucwords(str_replace("_", " ", $lowerCaseAndUnderscoredWord)));
 		return $replace;
 	}

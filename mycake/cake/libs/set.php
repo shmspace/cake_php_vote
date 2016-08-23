@@ -132,7 +132,7 @@ class Set extends Object {
  * @return array Combined array
  * @access public
  */
-	function pushDiff($array = null, $array2 = null) {
+	static function pushDiff($array = null, $array2 = null) {
 		if ($array2 !== null && is_array($array2)) {
 			foreach ($array2 as $key => $value) {
 				if (!array_key_exists($key, $array)) {
@@ -363,7 +363,7 @@ class Set extends Object {
  * @return array Extracted data
  * @access public
  */
-	function extract($data, $path = null) {
+	static function extract($data, $path = null) {
 		if ($path === null && is_a($this, 'set')) {
 			$path = $data;
 			$data = $this->get();
@@ -421,7 +421,7 @@ class Set extends Object {
  * @return array
  * @access public
  */
-	function insert($list, $path, $data = null) {
+	static function insert($list, $path, $data = null) {
 		if (empty($data) && is_a($this, 'Set')) {
 			$data = $path;
 			$path = $list;
