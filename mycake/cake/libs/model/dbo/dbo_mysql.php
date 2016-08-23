@@ -35,6 +35,8 @@
  * @package		cake
  * @subpackage	cake.cake.libs.model.dbo
  */
+require_once(CAKE_CORE_INCLUDE_PATH .DS. 'cake' .DS. 'libs' .DS. 'model'.DS.'datasources'.DS.'dbo_source.php');
+
 class DboMysql extends DboSource {
 /**
  * Enter description here...
@@ -97,12 +99,12 @@ class DboMysql extends DboSource {
 		$this->connected = false;
 
 		if (!$config['persistent'] || $config['connect'] === 'mysql_connect') {
-			$this->connection = mysql_connect($config['host'] . ':' . $config['port'], $config['login'], $config['password'], true);
+			$this->connection = mysqli_connect($config['host'] . ':' . $config['port'], $config['login'], $config['password']);
 		} else {
 			$this->connection = $connect($config['host'] . ':' . $config['port'], $config['login'], $config['password']);
 		}
 
-		if (mysql_select_db($config['database'], $this->connection)) {
+		if (mysqli_select_db($this->connection, $config['database'])) {
 			$this->connected = true;
 		}
 
@@ -137,7 +139,7 @@ class DboMysql extends DboSource {
  *
  * @return array Array of tablenames in the database
  */
-	function listSources() {
+	function listSources($data = null) {
 		$cache = parent::listSources();
 		if ($cache != null) {
 			return $cache;
@@ -162,7 +164,7 @@ class DboMysql extends DboSource {
  * @param string $tableName Name of database table to inspect
  * @return array Fields in table. Keys are name and type
  */
-	function describe(&$model) {
+	function describe($model) {
 		$cache = parent::describe($model);
 		if ($cache != null) {
 			return $cache;
@@ -295,7 +297,7 @@ class DboMysql extends DboSource {
  *
  * @return int Number of affected rows
  */
-	function lastAffected() {
+	function lastAffected($source = null) {
 		if ($this->_result) {
 			return mysql_affected_rows($this->connection);
 		}
@@ -307,7 +309,7 @@ class DboMysql extends DboSource {
  *
  * @return int Number of rows in resultset
  */
-	function lastNumRows() {
+	function lastNumRows($source = null) {
 		if ($this->_result and is_resource($this->_result)) {
 			return @mysql_num_rows($this->_result);
 		}

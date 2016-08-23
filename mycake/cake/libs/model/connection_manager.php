@@ -77,7 +77,7 @@ class ConnectionManager extends Object {
  *
  * @return object
  */
-	function &getInstance() {
+	static function &getInstance() {
 		static $instance = array();
 
 		if (!isset($instance[0]) || !$instance[0]) {
